@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input id="from" type="text">
+    В инпуте написано: <span></span>
+
+    <br>
+
+    <button class="messageBtn">Показать блок</button>
+    <div class="message">
+        Привет :)
+    </div>
+
+    <br>
+
+    <form>
+        <label>
+            Первый инпут:
+            <input class="form-control" type="text">
+        </label>
+        <br>
+        <br>
+        <label>
+            Второй инпут:
+            <select class="form-control">
+                <option value=""></option>
+                <option value="1">Один</option>
+                <option value="2">Два</option>
+            </select>
+        </label>
+        <br>
+        <br>
+        <button class="submit">Отправить</button>
+    </form>
+
+    <script>
+
+        // 1. При изменении значения в input с id="from", значение содержащееся в нем должно моментально отображаться в span. То есть при печати в input'е тег span также должен меняться.
+        const span = document.querySelector('span');
+        const input1 = document.querySelector('#from');
+
+        input1.addEventListener('input', function (e) {
+            span.textContent = input1.value;
+        });
+
+        // 2. При клике на кнопку с классом messageBtn необходимо элементу с классом message:
+        // - добавить два класса: animate_animated и animate_fadeInLeftBig
+        // - поставить данному элементу стиль visibility в значение 'visible'.
+
+        const button1 = document.querySelector('.messageBtn');
+        const element1 = document.querySelector('.message');
+        element1.style.visibility = 'hidden';
+        let logic = true;
+
+        button1.addEventListener('click', function (e) {
+            if (logic) {
+                element1.classList.add('animate_animated', 'animate_fadeInLeftBig');
+                element1.style.visibility = 'visible';
+                button1.textContent = 'Скрыть блок';
+                logic = false;
+            } else {
+                element1.classList.remove('animate_animated', 'animate_fadeInLeftBig');
+                element1.style.visibility = 'hidden';
+                button1.textContent = 'Показать блок';
+                logic = true
+            }
+        });
+
+        // 3. Необходимо при отправке формы проверить, заполнены ли все поля в этой форме. Если какое-либо поле не заполнено, форма не должна отправляться, также должны быть подсвечены незаполненные поля (необходимо поставить класс error незаполненным полям). Как только пользователь начинает заполнять какое-либо поле, необходимо, при вводе в данное поле, произвести проверку:
+        // - Если поле пустое, необходимо данное поле подсветить (поставить класс error данному полю).
+        // - Если поле было чем-либо заполнено, подсветку (класс error) необходимо убрать.
+
+        const form = document.querySelector('form');
+        const input2 = document.querySelectorAll('.form-control');
+        const button2 = document.querySelector('.submit');
+
+        input2.forEach(element => {
+            element.style.outline = 'none';
+        });
+
+        function checkingFields() {
+            let valid = true;
+            input2.forEach(element => {
+                if (element.value === '') {
+                    element.classList.add('error');
+                    valid = false;
+                }
+            });
+            return valid;
+        }
+
+        form.addEventListener('input', function (e) {
+            if (e.target.classList.contains('error')) {
+                e.target.classList.remove('error');
+                e.target.style.border = '';
+            }
+        });
+
+        button2.addEventListener('click', function (e) {
+            if (!checkingFields()) {
+                e.preventDefault();
+                input2.forEach(element => {
+                    if (element.classList.contains('error')) {
+                        element.style.border = '1px solid red';
+                    }
+                });
+            }
+        });
+
+    </script>
+</body>
+
+</html>
