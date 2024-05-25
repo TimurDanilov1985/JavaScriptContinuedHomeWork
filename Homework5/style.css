@@ -1,0 +1,23 @@
+.content {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.content__card {
+  width: 300px;
+  padding: 15px;
+  border: 1px solid green;
+  border-radius: 20px;
+}
+.content__card__img {
+  width: 100%;
+}
+.content__card__link {
+  transition: 0.3s;
+  text-decoration: none;
+  color: green;
+}
+.content__card__link:hover {
+  color: blue;
+}/*# sourceMappingURL=style.css.map */
